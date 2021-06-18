@@ -27,7 +27,7 @@ buzzer = 18
 
 server=smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
-server.login("user","pass")
+server.login("rasberrypizero.project","112233998877")
 ok=1
 message1="Uninvided guest!"
 message2="The uninvited guest has left!"
@@ -54,32 +54,32 @@ GPIO.output(10,GPIO.HIGH)
 
 #function to calculate distance
 def calculate_distance():
-  #set the trigger to HIGH
+    #set the trigger to HIGH
 	GPIO.output(trig, GPIO.HIGH)
 	
-  #sleep 0.00001 s and the set the trigger to LOW
+    #sleep 0.00001 s and the set the trigger to LOW
 	time.sleep(0.00001) 
 	GPIO.output(trig, GPIO.LOW)
 	
-  #save the start and stop times
-  start = time.time() 
+    #save the start and stop times
+    	start = time.time() 
 	stop = time.time()
 	
-  #modify the start time to be the last time until
-  #the echo becomes HIGH
-  while GPIO.input(echo) == 0:
+    #modify the start time to be the last time until
+    #the echo becomes HIGH
+    	while GPIO.input(echo) == 0:
 		start = time.time()
 		
-  #modify the stop time to be the last time until
-  #the echo becomes LOW
-  while GPIO.input(echo) == 1: 
+    #modify the stop time to be the last time until
+    #the echo becomes LOW
+   	while GPIO.input(echo) == 1: 
 		stop = time.time()
 		
-  #get the duration of the echo pin as HIGH
-  duration = stop - start
+    #get the duration of the echo pin as HIGH
+    	duration = stop - start
     	
-  #calculate the distance
-  distance = 34300/2 * duration
+    #calculate the distance
+    	distance = 34300/2 * duration
     	
 	if distance < 0.5 and distance > 500: 
         	return 0
@@ -91,7 +91,7 @@ try:
 	while True : 
 		if calculate_distance() < 15:
 			if ok==1 :
-				server.sendmail("sender","receiver",message1)
+				server.sendmail("rasberrypizero.project@gmail.com","miavanzariuc@gmail.com",message1)
 				GPIO.output(8, GPIO.HIGH)
 				GPIO.output(10, GPIO.LOW)
 				ok=0
@@ -106,7 +106,7 @@ try:
 			time.sleep(0.05)
 		else:
 			if ok==0:
-				server.sendmail("sender","receiver",message2)
+				server.sendmail("rasberrypizero.project@gmail.com","miavanzariuc@gmail.com",message2)
 				GPIO.output(8, GPIO.LOW)
 				GPIO.output(10, GPIO.HIGH)
 				ok=1
